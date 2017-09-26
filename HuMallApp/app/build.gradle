@@ -47,4 +47,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
     /*adapterHelper*/
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

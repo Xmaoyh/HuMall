@@ -1,5 +1,6 @@
 package com.maoyihan.www.kobe.module.home.view.activity;
 
+import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -15,8 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
+import com.maoyihan.www.kobe.module.home.view.fragment.GoodsFragment;
+import com.maoyihan.www.kobe.module.home.view.fragment.MeFragment;
+import com.maoyihan.www.kobe.module.home.view.fragment.NewsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +38,13 @@ public class MainActivity extends BaseBarActivity {
     NavigationView navView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @Bind(R.id.bottomBar)
+    BottomNavigationBar bottomNavigationBar;
+
+    private NewsFragment mNewsFragment;
+    private GoodsFragment mGoodsFragment;
+    private MeFragment mMeFragment;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected int getLayout() {
@@ -52,6 +65,7 @@ public class MainActivity extends BaseBarActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+        initFragments();
     }
 
     @Override
@@ -134,6 +148,59 @@ public class MainActivity extends BaseBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initFragments() {
+        mFragmentManager = getFragmentManager();
+        mNewsFragment = (NewsFragment) mFragmentManager.findFragmentByTag("news_fg");
+        mGoodsFragment = (GoodsFragment) mFragmentManager.findFragmentByTag("goods_fg");
+        mMeFragment = (MeFragment) mFragmentManager.findFragmentByTag("me_fg");
+
+        if (mNewsFragment == null) {
+            mNewsFragment = NewsFragment.newInstance();
+            mFragmentManager.beginTransaction().add(R.id.fl_main, mNewsFragment, "news_fg").commit();
+        }
+        if (mGoodsFragment == null) {
+            mGoodsFragment = GoodsFragment.newInstance();
+            mFragmentManager.beginTransaction().add(R.id.fl_main, mGoodsFragment, "goods_fg").commit();
+        }
+        if (mMeFragment == null) {
+            mMeFragment = MeFragment.newInstance();
+            mFragmentManager.beginTransaction().add(R.id.fl_main, mMeFragment, "me_fg").commit();
+        }
+        mFragmentManager.beginTransaction().show(mNewsFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
+        initBottomNavigation();
+    }
+
+    private void initBottomNavigation() {
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.news_active, "新闻").setInactiveIconResource(R.mipmap.news_inactive).setActiveColorResource(R.color.black))
+                .addItem(new BottomNavigationItem(R.mipmap.goods_active, "商品").setInactiveIconResource(R.mipmap.goods_inactive).setActiveColorResource(R.color.black))
+                .addItem(new BottomNavigationItem(R.mipmap.me_active, "我").setInactiveIconResource(R.mipmap.me_inactive).setActiveColorResource(R.color.black))
+                .setFirstSelectedPosition(0)
+                .initialise();
+        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position) {
+                if (position == 0) {
+                    mFragmentManager.beginTransaction().show(mNewsFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
+                } else if (position == 1) {
+                    mFragmentManager.beginTransaction().show(mGoodsFragment).hide(mNewsFragment).hide(mMeFragment).commitAllowingStateLoss();
+                } else if (position == 2) {
+                    mFragmentManager.beginTransaction().show(mMeFragment).hide(mNewsFragment).hide(mGoodsFragment).commitAllowingStateLoss();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(int position) {
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {
+
+            }
+        });
+
     }
 
 

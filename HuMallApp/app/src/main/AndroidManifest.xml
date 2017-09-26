@@ -37,7 +37,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".module.home.view.activity.MainActivity"
-            android:label="主页"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
