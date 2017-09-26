@@ -38,7 +38,7 @@
         <activity
             android:name=".module.home.view.activity.MainActivity"
             android:label="主页"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -46,16 +46,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.home.view.activity.CustomViewActivity"/>
-        <activity android:name=".module.home.view.activity.SearchActivity"
-                  android:label="@string/search"
-                  android:launchMode="singleTop"
+        <activity
+            android:name=".module.home.view.activity.SearchActivity"
+            android:label="@string/search"
+            android:launchMode="singleTop"
+            android:parentActivityName=".module.home.view.activity.MainActivity"
             >
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
+            <!-- 父activity的meta-data，用来支持4.0以下版本 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".module.home.view.activity.MainActivity" />
         </activity>
     </application>
 

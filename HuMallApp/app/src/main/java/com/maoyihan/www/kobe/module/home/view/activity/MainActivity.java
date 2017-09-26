@@ -4,12 +4,10 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -18,13 +16,13 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.maoyihan.www.kobe.R;
-import com.maoyihan.www.kobe.base.ActivityControl;
+import com.maoyihan.www.kobe.base.BaseBarActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    private String tag = getClass().getSimpleName();
+public class MainActivity extends BaseBarActivity {
+//    private String tag = getClass().getSimpleName();
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -35,46 +33,44 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-//    @Override
-//    protected int getLayout() {
-//        return R.layout.activity_main;
-//
-//    }
-//
-//    @Override
-//    protected void initVariables() {
-//
-//    }
-//
-//    @Override
-//    protected void initView() {
-//        ButterKnife.bind(this);
-//        hideTitle();
-//
-//        setSupportActionBar(toolbar);
-//        //加打开Drawer的按钮
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawerLayout.setDrawerListener(toggle);
-//        toggle.syncState();
-//    }
-//
-//    @Override
-//    protected void loadData() {
-//
-//    }
-//
-//    @Override
-//    protected void initListener() {
-//
-//    }
-//
-//    @Override
-//    protected void handleBundle(Bundle savedInstanceState) {
-//
-//    }
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_main;
 
+    }
 
     @Override
+    protected void initVariables() {
+
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        //加打开Drawer的按钮
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void handleBundle(Bundle savedInstanceState) {
+
+    }
+
+
+/*    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -85,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -126,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //Can be replaced with getComponentName()
         //if this searchable activity is the current activity
-        ComponentName componentName = new ComponentName(MainActivity.this,SearchActivity.class);
+        ComponentName componentName = new ComponentName(MainActivity.this, SearchActivity.class);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
         return super.onCreateOptionsMenu(menu);
     }

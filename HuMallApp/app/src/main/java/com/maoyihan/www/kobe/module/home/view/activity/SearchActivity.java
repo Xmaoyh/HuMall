@@ -3,10 +3,11 @@ package com.maoyihan.www.kobe.module.home.view.activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.maoyihan.www.kobe.R;
-import com.maoyihan.www.kobe.base.BaseActivity;
+import com.maoyihan.www.kobe.base.BaseBarActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,9 +16,11 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/23 0023.
  */
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseBarActivity {
     @Bind(R.id.tv_result)
     TextView tvResult;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected int getLayout() {
@@ -31,8 +34,8 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        hideTitle();
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
     }
 
     @Override
