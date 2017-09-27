@@ -82,7 +82,7 @@ public class NewsDetailActivity extends BaseBarActivity {
 
                     @Override
                     public void onNext(NewsDetailBean newsDetailBean) {
-                        webView.loadUrl(newsDetailBean.getResult().getUrl());
+                        webView.loadUrl(newsDetailBean.getData().getNews().getReplyurl());
                     }
                 });
     }
