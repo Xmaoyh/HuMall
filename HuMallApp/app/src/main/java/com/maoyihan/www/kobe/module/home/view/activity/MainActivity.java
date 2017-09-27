@@ -1,11 +1,12 @@
 package com.maoyihan.www.kobe.module.home.view.activity;
 
-import android.app.FragmentManager;
+
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,6 +23,7 @@ import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
 import com.maoyihan.www.kobe.module.home.view.fragment.GoodsFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.MeFragment;
+import com.maoyihan.www.kobe.module.home.view.fragment.NewsAndThreadFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.NewsFragment;
 
 import butterknife.Bind;
@@ -41,7 +43,7 @@ public class MainActivity extends BaseBarActivity {
     @Bind(R.id.bottomBar)
     BottomNavigationBar bottomNavigationBar;
 
-    private NewsFragment mNewsFragment;
+    private NewsAndThreadFragment mNewsFragment;
     private GoodsFragment mGoodsFragment;
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManager;
@@ -151,13 +153,13 @@ public class MainActivity extends BaseBarActivity {
     }
 
     private void initFragments() {
-        mFragmentManager = getFragmentManager();
-        mNewsFragment = (NewsFragment) mFragmentManager.findFragmentByTag("news_fg");
+        mFragmentManager = getSupportFragmentManager();
+        mNewsFragment = (NewsAndThreadFragment) mFragmentManager.findFragmentByTag("news_fg");
         mGoodsFragment = (GoodsFragment) mFragmentManager.findFragmentByTag("goods_fg");
         mMeFragment = (MeFragment) mFragmentManager.findFragmentByTag("me_fg");
 
         if (mNewsFragment == null) {
-            mNewsFragment = NewsFragment.newInstance();
+            mNewsFragment = NewsAndThreadFragment.newInstance();
             mFragmentManager.beginTransaction().add(R.id.fl_main, mNewsFragment, "news_fg").commit();
         }
         if (mGoodsFragment == null) {
