@@ -60,8 +60,12 @@
             <!-- 父activity的meta-data，用来支持4.0以下版本 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".module.home.view.activity.MainActivity" />
+                android:value=".module.home.view.activity.MainActivity"/>
         </activity>
+        <activity
+            android:name=".module.home.view.activity.NewsDetailActivity"
+            android:label="新闻详情"
+            />
     </application>
 
 </manifest>

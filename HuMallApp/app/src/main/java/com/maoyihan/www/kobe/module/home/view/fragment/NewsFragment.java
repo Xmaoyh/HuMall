@@ -1,5 +1,6 @@
 package com.maoyihan.www.kobe.module.home.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseFragment;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
+import com.maoyihan.www.kobe.module.home.view.activity.NewsDetailActivity;
 import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
