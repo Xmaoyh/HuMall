@@ -96,4 +96,13 @@ public class NewsDetailActivity extends BaseBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if(webView.canGoBack()){
+            webView.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
 }
