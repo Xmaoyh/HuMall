@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
@@ -31,7 +32,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseBarActivity {
 //    private String tag = getClass().getSimpleName();
-
+    @Bind(R.id.appbar)
+    AppBarLayout appBarLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.fl_main)

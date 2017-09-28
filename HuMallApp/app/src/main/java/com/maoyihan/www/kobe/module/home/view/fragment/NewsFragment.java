@@ -1,6 +1,7 @@
 package com.maoyihan.www.kobe.module.home.view.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,6 +61,17 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        AppBarLayout appBarLayout = (AppBarLayout)mActivity.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(verticalOffset == 0){
+                    smartRefreshLayout.setEnableRefresh(true);
+                }else{
+                    smartRefreshLayout.setEnableRefresh(false);
+                }
+            }
+        });
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
