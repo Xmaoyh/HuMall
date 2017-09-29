@@ -7,6 +7,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,12 +73,11 @@ public class ThreadDetailActivity extends BaseBarActivity {
                 .subscribe(new Subscriber<ThreadDetailBean>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("Retro","onError");
                     }
 
                     @Override
