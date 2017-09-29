@@ -2,6 +2,7 @@ package com.maoyihan.www.kobe.module.home.view.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ import rx.schedulers.Schedulers;
 
 public class ThreadsFragment extends BaseFragment {
     @Bind(R.id.newsFg_refresh)
-    SmartRefreshLayout smartRefreshLayout;
+    SwipeRefreshLayout smartRefreshLayout;
     @Bind(R.id.newsFg_recycler)
     RecyclerView recyclerView;
 
@@ -69,15 +70,15 @@ public class ThreadsFragment extends BaseFragment {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset == 0){
-                    smartRefreshLayout.setEnableRefresh(true);
+                    smartRefreshLayout.setEnabled(true);
                 }else{
-                    smartRefreshLayout.setEnableRefresh(false);
+                    smartRefreshLayout.setEnabled(false);
                 }
             }
         });
-        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        smartRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
+            public void onRefresh() {
                 getNews();
             }
         });
@@ -107,13 +108,13 @@ public class ThreadsFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        smartRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onNext(ThreadsBean threadsBean) {
                         mNewsAdapter.setNewData(threadsBean.getResult().getData());
-                        smartRefreshLayout.finishRefresh();
+                        smartRefreshLayout.setRefreshing(false);
                     }
                 });
     }
