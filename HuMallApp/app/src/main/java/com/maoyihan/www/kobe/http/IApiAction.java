@@ -2,6 +2,7 @@ package com.maoyihan.www.kobe.http;
 
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.bean.NewsDetailBean;
+import com.maoyihan.www.kobe.module.home.bean.ThreadDetailBean;
 import com.maoyihan.www.kobe.module.home.bean.ThreadsBean;
 
 import retrofit2.http.GET;
@@ -22,4 +23,7 @@ public interface IApiAction {
 
     @GET("https://bbs.mobileapi.hupu.com/1/7.1.8/recommend/getThreadsList?crt=1506504852494&night=0&lastTid=0&sign=ab04c4725495c41bdd29f5e76ddafb44&client=864587029303550&stamp=1506504601&isHome=1&time_zone=Asia%2FShanghai&android_id=3fd4ab9ac26c76f1&additionTid=0&unfollowTid=")
     Observable<ThreadsBean> getThreads();
+
+    @GET("http://bbs.mobileapi.hupu.com/1/7.1.8/threads/getsThreadInfo?offline=json&fid=34&nopic=0&night=0&page=1&nps=-999&client=864587029303550&webp=1")
+    Observable<ThreadDetailBean> getThreadDetail(@Query("tid") String tid);
 }

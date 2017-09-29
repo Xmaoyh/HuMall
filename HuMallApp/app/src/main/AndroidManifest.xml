@@ -66,6 +66,10 @@
             android:name=".module.home.view.activity.NewsDetailActivity"
             android:label="新闻详情"
             />
+        <activity
+            android:name=".module.home.view.activity.ThreadDetailActivity"
+            android:label="帖子详情"
+            />
     </application>
 
 </manifest>
