@@ -18,6 +18,7 @@ import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.ThreadDetailBean;
+import com.maoyihan.www.kobe.utils.MyImageGetter;
 
 import java.net.URL;
 
@@ -109,7 +110,7 @@ public class ThreadDetailActivity extends BaseBarActivity {
                             }
                         });
                         tvName.setText(data.getUsername());
-                        tvContent.setText(Html.fromHtml(data.getContent(),imgGetter,null));
+                        tvContent.setText(Html.fromHtml(data.getContent(),new MyImageGetter(ThreadDetailActivity.this, tvContent),null));
                     }
                 });
     }
