@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -30,6 +31,10 @@ import com.maoyihan.www.kobe.module.home.view.fragment.GoodsFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.MeFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.NewsAndThreadFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.NewsFragment;
+import com.maoyihan.www.kobe.utils.ToastUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private GoodsFragment mGoodsFragment;
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManager;
+    private boolean isExit;
 
 //    @Override
 //    protected int getLayout() {
@@ -123,7 +129,26 @@ public class MainActivity extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawer(Gravity.START);
         } else {
-            super.onBackPressed();
+            exitBy2Click();
+        }
+    }
+
+    private void exitBy2Click() {
+        Timer tExit;
+        if (!isExit) {
+            isExit = true; // 准备退出
+            ToastUtils.show(this,"再按一次退出程序", Toast.LENGTH_SHORT);
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 3000); // 如果3秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            ActivityControl.finishAll();    //获取PID
+            this.finish();
         }
     }
 
