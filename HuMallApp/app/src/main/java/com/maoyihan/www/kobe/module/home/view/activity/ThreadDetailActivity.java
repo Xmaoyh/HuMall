@@ -34,8 +34,6 @@ import rx.schedulers.Schedulers;
  */
 
 public class ThreadDetailActivity extends BaseBarActivity {
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.threadDetailAct_tv_title)
     TextView tvTitle;
     @Bind(R.id.threadDetailAct_tv_timeAndVisit)
@@ -62,8 +60,6 @@ public class ThreadDetailActivity extends BaseBarActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

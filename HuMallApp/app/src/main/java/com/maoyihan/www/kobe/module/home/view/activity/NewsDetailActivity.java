@@ -23,8 +23,6 @@ import rx.schedulers.Schedulers;
  */
 
 public class NewsDetailActivity extends BaseBarActivity {
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.newsDetailAct_webView)
     WebView webView;
 
@@ -42,10 +40,6 @@ public class NewsDetailActivity extends BaseBarActivity {
 
     @Override
     protected void initView() {
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        //后退按钮
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
     }

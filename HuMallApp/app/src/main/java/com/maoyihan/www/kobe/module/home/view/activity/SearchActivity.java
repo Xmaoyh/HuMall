@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 public class SearchActivity extends BaseBarActivity {
     @Bind(R.id.tv_result)
     TextView tvResult;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
 
     @Override
     protected int getLayout() {
@@ -35,10 +33,7 @@ public class SearchActivity extends BaseBarActivity {
 
     @Override
     protected void initView() {
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        //后退按钮
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
