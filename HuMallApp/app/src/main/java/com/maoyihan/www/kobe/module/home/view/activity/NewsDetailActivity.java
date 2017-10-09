@@ -3,8 +3,10 @@ package com.maoyihan.www.kobe.module.home.view.activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
@@ -42,6 +44,12 @@ public class NewsDetailActivity extends BaseBarActivity {
     protected void initView() {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+        });
     }
 
     @Override
