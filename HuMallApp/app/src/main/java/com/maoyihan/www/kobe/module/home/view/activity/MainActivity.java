@@ -4,6 +4,7 @@ package com.maoyihan.www.kobe.module.home.view.activity;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //    @Override
 //    protected void initView() {
-//        ButterKnife.bind(this);
 //        setSupportActionBar(toolbar);
 //        //加打开Drawer的按钮
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
+//
+//        ivLogin.setOnClickListener(v -> startActivity(new Intent(this,LoginActivity.class)));
 //    }
 //
 //    @Override
@@ -122,6 +125,26 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         initFragments();
+        initListener();
+    }
+
+    private void initListener(){
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_camera:
+
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+
+        ImageView ivLogin = (ImageView) navView.getHeaderView(0).findViewById(R.id.imageView);
+        ivLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
     }
 
     @Override

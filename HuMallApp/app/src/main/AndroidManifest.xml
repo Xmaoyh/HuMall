@@ -70,6 +70,10 @@
             android:name=".module.home.view.activity.ThreadDetailActivity"
             android:label="帖子详情"
             />
+        <activity
+            android:name=".module.home.view.activity.LoginActivity"
+            android:label="登录"
+            />
     </application>
 
 </manifest>
