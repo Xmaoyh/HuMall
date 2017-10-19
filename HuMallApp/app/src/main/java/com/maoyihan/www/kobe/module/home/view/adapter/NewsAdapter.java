@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -43,6 +45,9 @@ public class NewsAdapter extends BaseQuickAdapter<NewsBean.ResultBean.DataBean, 
                 mContext.startActivity(intent);
             }
         });
+
+        Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.anim_recycler_item_show);
+        cardView.startAnimation(animation);
     }
 
     @Override
