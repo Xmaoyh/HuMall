@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.maoyihan.www.kobe.base.BaseFragment;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
+import com.maoyihan.www.kobe.utils.ItemTouchHelperCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -91,6 +93,9 @@ public class NewsFragment extends BaseFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         mNewsAdapter = new NewsAdapter();
         recyclerView.setAdapter(mNewsAdapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(mNewsAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     private void getNews() {
