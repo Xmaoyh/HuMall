@@ -17,12 +17,15 @@ import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
 import com.maoyihan.www.kobe.utils.ItemTouchHelperCallback;
 
+import org.reactivestreams.Subscriber;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -101,26 +104,16 @@ public class VideoFragment extends BaseFragment {
         RetrofitUtil.getInstance().api().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NewsBean>() {
+                .subscribe(new Consumer<NewsBean>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(NewsBean newsBean) {
+                    public void accept(@NonNull NewsBean newsBean) throws Exception {
                         mNewsAdapter.setNewData(newsBean.getResult().getData());
                         smartRefreshLayout.setRefreshing(false);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable t) {
+                    public void accept(@NonNull Throwable throwable) throws Exception {
                         smartRefreshLayout.setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
 //                .subscribe(new Subscriber<NewsBean>() {
