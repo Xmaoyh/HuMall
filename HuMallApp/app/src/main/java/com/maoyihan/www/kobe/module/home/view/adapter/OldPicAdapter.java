@@ -29,7 +29,7 @@ public class OldPicAdapter extends BaseQuickAdapter<PhotoArticleBean.DataBean, B
     @Override
     protected void convert(BaseViewHolder helper, PhotoArticleBean.DataBean item) {
         ImageView ivPic = helper.getView(R.id.newsAda_iv_pic);
-        Glide.with(mContext).load(item.getImage_url()).into(ivPic);
+        Glide.with(mContext).load("https:"+item.getImage_url()).into(ivPic);
         helper.setText(R.id.newsAda_tv_title, item.getTitle());
         CardView cardView = helper.getView(R.id.newsAda_click);
         cardView.setOnClickListener(new View.OnClickListener() {
