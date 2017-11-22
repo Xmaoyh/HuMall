@@ -1,5 +1,6 @@
 package com.maoyihan.www.kobe.module.home.view.adapter;
 
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.maoyihan.www.kobe.R;
+import com.maoyihan.www.kobe.base.WebActivity;
 import com.maoyihan.www.kobe.module.home.bean.PhotoArticleBean;
 
 /**
@@ -33,9 +35,9 @@ public class OldPicAdapter extends BaseQuickAdapter<PhotoArticleBean.DataBean, B
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(mContext, NewsDetailActivity.class);
-//                intent.putExtra("nid",item);
-//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra("url", item.getSource_url());
+                mContext.startActivity(intent);
             }
         });
 

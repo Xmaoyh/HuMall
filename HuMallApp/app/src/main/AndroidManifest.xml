@@ -74,6 +74,10 @@
             android:name=".module.home.view.activity.LoginActivity"
             android:label="登录"
             />
+        <activity
+            android:name=".base.WebActivity"
+            android:label="图片详情"
+            />
     </application>
 
 </manifest>
