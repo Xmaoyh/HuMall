@@ -28,11 +28,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.ActivityControl;
-import com.maoyihan.www.kobe.base.BaseBarActivity;
 import com.maoyihan.www.kobe.module.home.view.fragment.GoodsFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.MeFragment;
 import com.maoyihan.www.kobe.module.home.view.fragment.NewsAndThreadFragment;
-import com.maoyihan.www.kobe.module.home.view.fragment.NewsFragment;
+import com.maoyihan.www.kobe.module.home.view.fragment.OldPicFragment;
+import com.maoyihan.www.kobe.module.home.view.fragment.VideoFragment;
 import com.maoyihan.www.kobe.utils.ToastUtils;
 
 import java.util.Timer;
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private NewsAndThreadFragment mNewsFragment;
     private GoodsFragment mGoodsFragment;
+    private OldPicFragment mPicFragment;
+    private VideoFragment mVideoFragment;
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManager;
     private boolean isExit;
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         initListener();
     }
 
-    private void initListener(){
+    private void initListener() {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         Timer tExit;
         if (!isExit) {
             isExit = true; // 准备退出
-            ToastUtils.show(this,"再按一次退出程序", Toast.LENGTH_SHORT);
+            ToastUtils.show(this, "再按一次退出程序", Toast.LENGTH_SHORT);
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
                 @Override
@@ -222,12 +224,22 @@ public class MainActivity extends AppCompatActivity {
     private void initFragments() {
         mFragmentManager = getSupportFragmentManager();
         mNewsFragment = (NewsAndThreadFragment) mFragmentManager.findFragmentByTag("news_fg");
+        mPicFragment = (OldPicFragment) mFragmentManager.findFragmentByTag("pic_fg");
+        mVideoFragment = (VideoFragment) mFragmentManager.findFragmentByTag("video_fg");
         mGoodsFragment = (GoodsFragment) mFragmentManager.findFragmentByTag("goods_fg");
         mMeFragment = (MeFragment) mFragmentManager.findFragmentByTag("me_fg");
 
         if (mNewsFragment == null) {
             mNewsFragment = NewsAndThreadFragment.newInstance();
             mFragmentManager.beginTransaction().add(R.id.fl_main, mNewsFragment, "news_fg").commit();
+        }
+        if (mPicFragment == null) {
+            mPicFragment = OldPicFragment.newInstance();
+            mFragmentManager.beginTransaction().add(R.id.fl_main, mPicFragment, "pic_fg").commit();
+        }
+        if (mVideoFragment == null) {
+            mVideoFragment = VideoFragment.newInstance();
+            mFragmentManager.beginTransaction().add(R.id.fl_main, mVideoFragment, "video_fg").commit();
         }
         if (mGoodsFragment == null) {
             mGoodsFragment = GoodsFragment.newInstance();
@@ -237,12 +249,14 @@ public class MainActivity extends AppCompatActivity {
             mMeFragment = MeFragment.newInstance();
             mFragmentManager.beginTransaction().add(R.id.fl_main, mMeFragment, "me_fg").commit();
         }
-        mFragmentManager.beginTransaction().show(mNewsFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
+        mFragmentManager.beginTransaction().show(mNewsFragment).hide(mPicFragment).hide(mVideoFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
         initBottomNavigation();
     }
 
     private void initBottomNavigation() {
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.news_active, "新闻").setInactiveIconResource(R.mipmap.news_inactive).setActiveColorResource(R.color.black))
+                .addItem(new BottomNavigationItem(R.mipmap.pic_active, "老照片").setInactiveIconResource(R.mipmap.pic_inactive).setActiveColorResource(R.color.black))
+                .addItem(new BottomNavigationItem(R.mipmap.video_active, "视屏").setInactiveIconResource(R.mipmap.video_inactive).setActiveColorResource(R.color.black))
                 .addItem(new BottomNavigationItem(R.mipmap.goods_active, "商品").setInactiveIconResource(R.mipmap.goods_inactive).setActiveColorResource(R.color.black))
                 .addItem(new BottomNavigationItem(R.mipmap.me_active, "我").setInactiveIconResource(R.mipmap.me_inactive).setActiveColorResource(R.color.black))
                 .setFirstSelectedPosition(0)
@@ -251,11 +265,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int position) {
                 if (position == 0) {
-                    mFragmentManager.beginTransaction().show(mNewsFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
+                    mFragmentManager.beginTransaction().show(mNewsFragment).hide(mPicFragment).hide(mVideoFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
                 } else if (position == 1) {
-                    mFragmentManager.beginTransaction().show(mGoodsFragment).hide(mNewsFragment).hide(mMeFragment).commitAllowingStateLoss();
+                    mFragmentManager.beginTransaction().show(mPicFragment).hide(mNewsFragment).hide(mVideoFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
                 } else if (position == 2) {
-                    mFragmentManager.beginTransaction().show(mMeFragment).hide(mNewsFragment).hide(mGoodsFragment).commitAllowingStateLoss();
+                    mFragmentManager.beginTransaction().show(mVideoFragment).hide(mNewsFragment).hide(mPicFragment).hide(mGoodsFragment).hide(mMeFragment).commitAllowingStateLoss();
+                } else if (position == 3) {
+                    mFragmentManager.beginTransaction().show(mGoodsFragment).hide(mNewsFragment).hide(mPicFragment).hide(mVideoFragment).hide(mMeFragment).commitAllowingStateLoss();
+                } else if (position == 4) {
+                    mFragmentManager.beginTransaction().show(mMeFragment).hide(mNewsFragment).hide(mPicFragment).hide(mVideoFragment).hide(mGoodsFragment).commitAllowingStateLoss();
                 }
             }
 

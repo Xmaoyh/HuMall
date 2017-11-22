@@ -20,6 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         app:bnbBackgroundColor="@android:color/white"
+        app:bnbMode="mode_fixed"
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>

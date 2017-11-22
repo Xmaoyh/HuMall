@@ -12,20 +12,16 @@ import android.view.ViewGroup;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseFragment;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
-import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.bean.ThreadsBean;
-import com.maoyihan.www.kobe.module.home.view.activity.MainActivity;
-import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
 import com.maoyihan.www.kobe.module.home.view.adapter.ThreadsAdapter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 帖子
@@ -38,7 +34,7 @@ public class ThreadsFragment extends BaseFragment {
     @Bind(R.id.newsFg_recycler)
     RecyclerView recyclerView;
 
-    private ThreadsAdapter mNewsAdapter;
+    private ThreadsAdapter mThreadsAdapter;
 
     public static ThreadsFragment newInstance() {
         Bundle args = new Bundle();
@@ -92,31 +88,53 @@ public class ThreadsFragment extends BaseFragment {
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mNewsAdapter = new ThreadsAdapter();
-        recyclerView.setAdapter(mNewsAdapter);
+        mThreadsAdapter = new ThreadsAdapter();
+        recyclerView.setAdapter(mThreadsAdapter);
     }
 
     private void getNews() {
         RetrofitUtil.getInstance().api().getThreads()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ThreadsBean>() {
+                .subscribe(new Observer<ThreadsBean>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onNext(@NonNull ThreadsBean threadsBean) {
+                        mThreadsAdapter.setNewData(threadsBean.getResult().getData());
                         smartRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
-                    public void onNext(ThreadsBean threadsBean) {
-                        mNewsAdapter.setNewData(threadsBean.getResult().getData());
+                    public void onError(@NonNull Throwable e) {
                         smartRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
+//                .subscribe(new Subscriber<ThreadsBean>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        smartRefreshLayout.setRefreshing(false);
+//                    }
+//
+//                    @Override
+//                    public void onNext(ThreadsBean threadsBean) {
+//                        mThreadsAdapter.setNewData(threadsBean.getResult().getData());
+//                        smartRefreshLayout.setRefreshing(false);
+//                    }
+//                });
     }
 
 

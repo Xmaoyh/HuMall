@@ -1,13 +1,22 @@
 package com.maoyihan.www.kobe.http;
 
+import com.maoyihan.www.kobe.config.AppConstant;
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.bean.NewsDetailBean;
+import com.maoyihan.www.kobe.module.home.bean.PhotoArticleBean;
 import com.maoyihan.www.kobe.module.home.bean.ThreadDetailBean;
 import com.maoyihan.www.kobe.module.home.bean.ThreadsBean;
 
+
+import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
-import rx.Observable;
+import retrofit2.http.Url;
+
+
 
 /**
  * API请求接口
@@ -26,4 +35,24 @@ public interface IApiAction {
 
     @GET("http://bbs.mobileapi.hupu.com/1/7.1.8/threads/getsThreadInfo?offline=json&fid=34&nopic=0&night=0&page=1&nps=-999&client=864587029303550&webp=1")
     Observable<ThreadDetailBean> getThreadDetail(@Query("tid") String tid);
+
+    /**
+     * 获取图片标题等信息
+     * http://www.toutiao.com/api/article/feed/?category=类型&as=A115C8457F69B85&cp=585F294B8845EE1&_=时间&count=30
+     */
+    @GET("http://www.toutiao.com/api/pc/feed/?as=A115C8457F69B85&cp=585F294B8845EE1")
+    Observable<PhotoArticleBean> getPhotoArticle(
+            @Query("category") String category,
+            @Query("max_behot_time") String time);
+
+    /**
+     * 获取图片内容HTML内容
+     * 抓取 url 较复杂
+     * 详情查看 {@linkplain com.meiji.toutiao.module.photo.content.PhotoContentPresenter#doLoadData(String...)}
+     */
+    @GET()
+    @Headers("User-Agent:" + AppConstant.USER_AGENT_PC)
+    Call<ResponseBody> getPhotoContentHTML(@Url String url);
+
+
 }

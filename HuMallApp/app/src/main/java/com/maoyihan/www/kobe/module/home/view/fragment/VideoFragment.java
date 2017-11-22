@@ -25,13 +25,12 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-
 /**
- * 新闻
+ * 视频
  * Created by MaoYiHan on 2017/9/26 0026
  */
 
-public class NewsFragment extends BaseFragment {
+public class VideoFragment extends BaseFragment {
     @Bind(R.id.newsFg_refresh)
     SwipeRefreshLayout smartRefreshLayout;
     @Bind(R.id.newsFg_recycler)
@@ -39,9 +38,9 @@ public class NewsFragment extends BaseFragment {
 
     private NewsAdapter mNewsAdapter;
 
-    public static NewsFragment newInstance() {
+    public static VideoFragment newInstance() {
         Bundle args = new Bundle();
-        NewsFragment fragment = new NewsFragment();
+        VideoFragment fragment = new VideoFragment();
         fragment.setArguments(args);
         return fragment;
     }

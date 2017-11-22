@@ -28,6 +28,10 @@ android {
     retrolambda {//指定将源码编译的级别，使用下列代码，会将代码编译到兼容1.6的字节码格式
         javaVersion JavaVersion.VERSION_1_6
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -36,13 +40,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'com.blankj:utilcode:1.7.0'
+    /*okhttp 3*/
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    /*retrofit 2*/
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    /*RxJava 2*/
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.blankj:utilcode:1.7.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     /*刷新*/
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
