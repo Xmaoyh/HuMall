@@ -5,26 +5,15 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.maoyihan.www.kobe.R;
-import com.maoyihan.www.kobe.http.RetrofitUtil;
-import com.maoyihan.www.kobe.module.home.bean.NewsBean;
-import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
-import com.maoyihan.www.kobe.utils.ItemTouchHelperCallback;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * ListFragment基类
