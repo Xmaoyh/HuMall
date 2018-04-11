@@ -10,15 +10,16 @@ import android.widget.TextView;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/23 0023.
  */
 
 public class SearchActivity extends BaseBarActivity {
-    @Bind(R.id.tv_result)
+    @BindView(R.id.tv_result)
     TextView tvResult;
 
     @Override
@@ -73,4 +74,5 @@ public class SearchActivity extends BaseBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

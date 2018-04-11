@@ -15,8 +15,9 @@ import com.maoyihan.www.kobe.base.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 新闻和帖子
@@ -24,10 +25,11 @@ import butterknife.ButterKnife;
  */
 
 public class NewsAndThreadFragment extends BaseFragment {
-    @Bind(R.id.newsThreadFg_tl)
+    @BindView(R.id.newsThreadFg_tl)
     TabLayout tabLayout;
-    @Bind(R.id.newsThreadFg_viewPager)
+    @BindView(R.id.newsThreadFg_viewPager)
     ViewPager viewPager;
+    Unbinder unbinder;
 
     private List<Fragment> mFragmentList;
     private String[] mStrings = {"新闻", "帖子"};
@@ -69,7 +71,7 @@ public class NewsAndThreadFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void initViewPager() {

@@ -21,8 +21,9 @@ import com.maoyihan.www.kobe.utils.MyImageGetter;
 
 import java.net.URL;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -35,15 +36,15 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ThreadDetailActivity extends BaseBarActivity {
-    @Bind(R.id.threadDetailAct_tv_title)
+    @BindView(R.id.threadDetailAct_tv_title)
     TextView tvTitle;
-    @Bind(R.id.threadDetailAct_tv_timeAndVisit)
+    @BindView(R.id.threadDetailAct_tv_timeAndVisit)
     TextView tvTimeAndVisit;
-    @Bind(R.id.threadDetailAct_iv_avatar)
+    @BindView(R.id.threadDetailAct_iv_avatar)
     ImageView ivAvatar;
-    @Bind(R.id.threadDetailAct_tv_name)
+    @BindView(R.id.threadDetailAct_tv_name)
     TextView tvName;
-    @Bind(R.id.threadDetailAct_tv_content)
+    @BindView(R.id.threadDetailAct_tv_content)
     TextView tvContent;
 
     private String mTid;
@@ -88,6 +89,7 @@ public class ThreadDetailActivity extends BaseBarActivity {
                     @Override
                     public void onNext(ThreadDetailBean bean) {
                         Html.ImageGetter imgGetter = new Html.ImageGetter() {
+                            @Override
                             public Drawable getDrawable(String source) {
                                 Drawable drawable = null;
                                 URL url;
@@ -137,6 +139,5 @@ public class ThreadDetailActivity extends BaseBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.utils.ToastUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**

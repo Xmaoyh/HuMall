@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.maoyihan.www.humall"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -25,44 +25,50 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    retrolambda {//指定将源码编译的级别，使用下列代码，会将代码编译到兼容1.6的字节码格式
-        javaVersion JavaVersion.VERSION_1_6
-    }
-
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:multidex:1.0.1'
-    /*okhttp 3*/
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    def supportVersions = '26.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:$supportVersions"
+    implementation "com.android.support:design:$supportVersions"
+    implementation 'com.android.support:multidex:1.0.1'
+    /*okHttp 3*/
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     /*retrofit 2*/
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     /*RxJava 2*/
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     /*RxBinding2*/
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.blankj:utilcode:1.7.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    /*utilCode*/
+    implementation 'com.blankj:utilcode:1.7.0'
+    /*butterKnife*/
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     /*刷新*/
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
     /*adapterHelper*/
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
-    compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'org.jsoup:jsoup:1.10.3'
-    compile 'com.android.support:cardview-v7:25.3.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation "com.android.support:cardview-v7:$supportVersions"
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    // Room (use 1.1.0-beta2 for latest beta)
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
 
 }

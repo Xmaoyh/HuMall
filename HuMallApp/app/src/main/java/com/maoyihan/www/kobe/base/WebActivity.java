@@ -8,8 +8,9 @@ import android.webkit.WebViewClient;
 
 import com.maoyihan.www.kobe.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 网页
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
  */
 
 public class WebActivity extends BaseBarActivity {
-    @Bind(R.id.webAct_webView)
+    @BindView(R.id.webAct_webView)
     WebView webView;
 
     private String mUrl;
@@ -82,4 +83,5 @@ public class WebActivity extends BaseBarActivity {
         }
         super.onBackPressed();
     }
+
 }

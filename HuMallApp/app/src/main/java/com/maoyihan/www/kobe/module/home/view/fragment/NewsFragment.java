@@ -17,8 +17,9 @@ import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
 import com.maoyihan.www.kobe.utils.ItemTouchHelperCallback;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -32,10 +33,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class NewsFragment extends BaseFragment {
-    @Bind(R.id.newsFg_refresh)
+    @BindView(R.id.newsFg_refresh)
     SwipeRefreshLayout smartRefreshLayout;
-    @Bind(R.id.newsFg_recycler)
+    @BindView(R.id.newsFg_recycler)
     RecyclerView recyclerView;
+    Unbinder unbinder;
 
     private NewsAdapter mNewsAdapter;
 
@@ -147,6 +149,7 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
+
 }

@@ -16,8 +16,9 @@ import com.maoyihan.www.kobe.base.BaseFragment;
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,15 +35,15 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class GoodsFragment extends BaseFragment {
-
-    @Bind(R.id.tv)
+    @BindView(R.id.tv)
     TextView tv;
-    @Bind(R.id.button)
+    @BindView(R.id.button)
     Button button;
-    @Bind(R.id.editTextName)
+    @BindView(R.id.editTextName)
     EditText edtTName;
-    @Bind(R.id.editTextPsw)
+    @BindView(R.id.editTextPsw)
     EditText edtTPsw;
+    Unbinder unbinder;
 
     private Observable<Long> mVerifyCodeObservable;
     private Disposable mDisposable;
@@ -176,7 +177,7 @@ public class GoodsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         mVerifyCodeObservable.unsubscribeOn(AndroidSchedulers.mainThread());
         if (mDisposable != null) {
             mDisposable.dispose();

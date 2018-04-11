@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.maoyihan.www.kobe.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * ListFragment基类
@@ -21,13 +22,12 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseListFragment extends BaseFragment {
-    @Bind(R.id.newsFg_refresh)
-    protected SwipeRefreshLayout smartRefreshLayout;
-    @Bind(R.id.newsFg_recycler)
-    protected RecyclerView recyclerView;
-
+    @BindView(R.id.newsFg_refresh)
+    public SwipeRefreshLayout smartRefreshLayout;
+    @BindView(R.id.newsFg_recycler)
+    public RecyclerView recyclerView;
+    Unbinder unbinder;
     protected BaseQuickAdapter mAdapter;
-
 
     @Override
     protected View getLayout(LayoutInflater inflater, ViewGroup container) {
@@ -36,7 +36,7 @@ public abstract class BaseListFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setAdapter();
         initRecyclerView();
 
@@ -49,13 +49,13 @@ public abstract class BaseListFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        AppBarLayout appBarLayout = (AppBarLayout)mActivity.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = (AppBarLayout) mActivity.findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if(verticalOffset == 0){
+                if (verticalOffset == 0) {
                     smartRefreshLayout.setEnabled(true);
-                }else{
+                } else {
                     smartRefreshLayout.setEnabled(false);
                 }
             }
@@ -89,10 +89,9 @@ public abstract class BaseListFragment extends BaseFragment {
 
     protected abstract void getData(boolean isRefresh);
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

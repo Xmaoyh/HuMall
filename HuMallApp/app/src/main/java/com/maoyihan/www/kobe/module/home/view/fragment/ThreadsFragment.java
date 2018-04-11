@@ -15,8 +15,9 @@ import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.ThreadsBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.ThreadsAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -29,10 +30,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ThreadsFragment extends BaseFragment {
-    @Bind(R.id.newsFg_refresh)
+    @BindView(R.id.newsFg_refresh)
     SwipeRefreshLayout smartRefreshLayout;
-    @Bind(R.id.newsFg_recycler)
+    @BindView(R.id.newsFg_recycler)
     RecyclerView recyclerView;
+    Unbinder unbinder;
 
     private ThreadsAdapter mThreadsAdapter;
 
@@ -141,6 +143,6 @@ public class ThreadsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

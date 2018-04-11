@@ -11,7 +11,8 @@ import com.maoyihan.www.kobe.base.BaseBarActivity;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsDetailBean;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -24,9 +25,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class NewsDetailActivity extends BaseBarActivity {
-    @Bind(R.id.newsDetailAct_webView)
+    @BindView(R.id.newsDetailAct_webView)
     WebView webView;
-
     private String mNid;
 
     @Override
@@ -111,4 +111,5 @@ public class NewsDetailActivity extends BaseBarActivity {
         }
         super.onBackPressed();
     }
+
 }

@@ -38,23 +38,25 @@ import com.maoyihan.www.kobe.utils.ToastUtils;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity {
     private String tag = getClass().getSimpleName();
-    @Bind(R.id.appbar)
+    @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fl_main)
+    @BindView(R.id.fl_main)
     FrameLayout flMain;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navView;
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.bottomBar)
+    @BindView(R.id.bottomBar)
     BottomNavigationBar bottomNavigationBar;
+
 
     private NewsAndThreadFragment mNewsFragment;
     private GoodsFragment mGoodsFragment;
