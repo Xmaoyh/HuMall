@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseFragment;
+import com.maoyihan.www.kobe.base.MyApplication;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
 import com.maoyihan.www.kobe.module.home.presenter.NewsViewModel;
@@ -62,7 +63,8 @@ public class NewsFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
-        mNewsViewModel = ViewModelProviders.of(getActivity()).get(NewsViewModel.class);
+        /*NewsViewModel.Factory factory = new NewsViewModel.Factory(getActivity().getApplication(), MyApplication.getInstance().getDatabase());*/
+        mNewsViewModel = ViewModelProviders.of(this/*,factory*/).get(NewsViewModel.class);
         mNewsViewModel.getNewBean().observe(this, newsBean -> {
             if(newsBean == null){
                 smartRefreshLayout.setRefreshing(false);
