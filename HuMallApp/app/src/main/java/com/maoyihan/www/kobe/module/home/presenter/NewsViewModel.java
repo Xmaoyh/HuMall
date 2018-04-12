@@ -50,7 +50,7 @@ public class NewsViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mNews.setValue(null);
                     }
 
                     @Override

@@ -64,6 +64,11 @@ public class NewsFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         mNewsViewModel = ViewModelProviders.of(getActivity()).get(NewsViewModel.class);
         mNewsViewModel.getNewBean().observe(this, newsBean -> {
+            if(newsBean == null){
+                smartRefreshLayout.setRefreshing(false);
+                showMsg("请求失败");
+                return;
+            }
             mNewsAdapter.setNewData(newsBean.getResult().getData());
             smartRefreshLayout.setRefreshing(false);
         });
