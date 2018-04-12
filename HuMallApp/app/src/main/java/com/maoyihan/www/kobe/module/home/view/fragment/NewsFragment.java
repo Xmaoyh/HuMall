@@ -1,6 +1,8 @@
 package com.maoyihan.www.kobe.module.home.view.fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +16,11 @@ import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseFragment;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsBean;
+import com.maoyihan.www.kobe.module.home.presenter.NewsViewModel;
 import com.maoyihan.www.kobe.module.home.view.adapter.NewsAdapter;
 import com.maoyihan.www.kobe.utils.ItemTouchHelperCallback;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +45,7 @@ public class NewsFragment extends BaseFragment {
     Unbinder unbinder;
 
     private NewsAdapter mNewsAdapter;
+    private NewsViewModel mNewsViewModel;
 
     public static NewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -55,7 +61,12 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
+        mNewsViewModel = ViewModelProviders.of(getActivity()).get(NewsViewModel.class);
+        mNewsViewModel.getNewBean().observe(this, newsBean -> {
+            mNewsAdapter.setNewData(newsBean.getResult().getData());
+            smartRefreshLayout.setRefreshing(false);
+        });
         initRecyclerView();
     }
 
@@ -101,7 +112,8 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void getNews() {
-        RetrofitUtil.getInstance().api().getNews()
+        mNewsViewModel.getNewBean();
+/*        RetrofitUtil.getInstance().api().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NewsBean>() {
@@ -125,7 +137,7 @@ public class NewsFragment extends BaseFragment {
                     public void onComplete() {
 
                     }
-                });
+                });*/
 //                .subscribe(new Subscriber<NewsBean>() {
 //                    @Override
 //                    public void onCompleted() {

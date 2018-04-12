@@ -57,7 +57,7 @@ public class VideoFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         initRecyclerView();
     }
 
@@ -103,7 +103,8 @@ public class VideoFragment extends BaseFragment {
     }
 
     private void getNews() {
-        RetrofitUtil.getInstance().api().getNews()
+
+/*        RetrofitUtil.getInstance().api().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<NewsBean>() {
@@ -117,7 +118,7 @@ public class VideoFragment extends BaseFragment {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         smartRefreshLayout.setRefreshing(false);
                     }
-                });
+                });*/
 //                .subscribe(new Subscriber<NewsBean>() {
 //                    @Override
 //                    public void onCompleted() {
