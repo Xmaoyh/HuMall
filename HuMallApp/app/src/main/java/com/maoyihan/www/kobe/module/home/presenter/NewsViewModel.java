@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class NewsViewModel extends AndroidViewModel {
     private MutableLiveData<NewsBean> mNews;
-    private List<UserEntity> mUserEntityList;
+
     public NewsViewModel(@NonNull Application application/*,AppDatabase appDatabase*/) {
         super(application);
         init(/*appDatabase*/);
@@ -43,12 +43,6 @@ public class NewsViewModel extends AndroidViewModel {
             mNews = new MutableLiveData<>();
         }
         getNewsFormNet();
-        MyApplication.getInstance().getAppExecutors().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mUserEntityList = MyApplication.getInstance().getDatabase().userDao().getAll();
-            }
-        });
     }
 
     private void getNewsFormNet() {
@@ -78,7 +72,7 @@ public class NewsViewModel extends AndroidViewModel {
                 });
     }
 
-    public LiveData<NewsBean> getNewBean() {
+    public MutableLiveData<NewsBean> getNewBean() {
         getNewsFormNet();
         return mNews;
     }

@@ -39,7 +39,6 @@ public class DataGenerator {
         for (int i = 0; i < MM.length; i++) {
             UserEntity product = new UserEntity();
             product.setName(MM[ i ]);
-            product.setUid(i);
             userEntities.add(product);
         }
         return userEntities;

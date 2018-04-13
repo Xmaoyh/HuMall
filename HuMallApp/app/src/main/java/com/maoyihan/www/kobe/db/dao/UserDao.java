@@ -10,6 +10,12 @@ import com.maoyihan.www.kobe.db.entity.UserEntity;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import retrofit2.http.DELETE;
+
 /**
  * @author MaoYiHan
  * @date 2018/4/12
@@ -17,11 +23,8 @@ import java.util.List;
  */
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM UserEntity")
-    List<UserEntity> getAll();
-
-    @Query("SELECT * FROM UserEntity WHERE uid  = :userId")
-    List<UserEntity> loadAllByIds(int userId);
+    @Insert
+    void insert(UserEntity userEntity);
 
     @Insert
     void insertAll(List<UserEntity> userEntities);
@@ -29,6 +32,19 @@ public interface UserDao {
     @Delete
     void delete(UserEntity userEntity);
 
-//    @Update()
-//    void update();
+    @Delete
+    void deleteAll(List<UserEntity> userEntities);
+
+    @Update()
+    void update(UserEntity userEntity);
+
+    @Query("SELECT * FROM UserEntity")
+    List<UserEntity> getAll();
+
+    @Query("SELECT * FROM UserEntity WHERE uid  = :uid")
+    Single<UserEntity> getByUid(int uid);
+
+    @Query("SELECT * FROM userentity WHERE name like 'M%'")
+    Single<List<UserEntity>> getAllLikeMao();
+
 }
