@@ -42,7 +42,7 @@ public interface UserDao {
     List<UserEntity> getAll();
 
     @Query("SELECT * FROM UserEntity WHERE uid  = :uid")
-    Single<UserEntity> getByUid(int uid);
+    Flowable<UserEntity> getByUid(int uid);
 
     @Query("SELECT * FROM userentity WHERE name like 'M%'")
     Single<List<UserEntity>> getAllLikeMao();

@@ -71,4 +71,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     // RxJava support for Room (use 1.1.0-beta2 for latest alpha)
     implementation "android.arch.persistence.room:rxjava2:1.0.0"
+    /*logger*/
+    implementation 'com.orhanobut:logger:2.2.0'
 }

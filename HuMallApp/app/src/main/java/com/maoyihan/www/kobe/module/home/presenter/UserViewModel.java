@@ -12,7 +12,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.maoyihan.www.kobe.base.MyApplication;
 import com.maoyihan.www.kobe.db.AppDatabase;
 import com.maoyihan.www.kobe.db.entity.UserEntity;
+import com.orhanobut.logger.Logger;
 
+import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.List;
@@ -24,7 +26,10 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -123,6 +128,24 @@ public class UserViewModel extends AndroidViewModel {
 
             }
         });
+    }
+
+    /**一定要以userEntity -> Logger.t("id").d(userEntity)或者new Consumer<UserEntity>() {
+    @Override
+    public void accept(UserEntity userEntity) throws Exception {
+    Logger.t("id").d(userEntity);
+    }
+    }这种Consumer获取
+     * 用new FlowableSubscriber<UserEntity>() {}只会回调onSubscribe方法
+     * 貌似Maybe、Single、Flowable都支持Consumer
+     * */
+    @SuppressLint("CheckResult")
+    public void getUserById(int id){
+
+        MyApplication.getInstance().getDatabase().userDao().getByUid(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userEntity -> Logger.t("id").d(userEntity));
     }
 
     public MutableLiveData<List<UserEntity>> getUserEntityList() {
