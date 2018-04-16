@@ -13,6 +13,15 @@ public class UserEntity {
     @PrimaryKey(autoGenerate = true)
     private int uid;
     private String name;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getUid() {
         return uid;

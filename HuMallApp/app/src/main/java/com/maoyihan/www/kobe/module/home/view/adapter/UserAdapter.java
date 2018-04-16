@@ -30,7 +30,7 @@ public class UserAdapter extends BaseQuickAdapter<UserEntity, BaseViewHolder> im
     protected void convert(BaseViewHolder helper, UserEntity item) {
         helper.setText(R.id.tvTitle, item.getName());
         helper.setText(R.id.tvLight, item.getUid() + "");
-//        helper.setText(R.id.tvReply, item.getReplies());
+        helper.setText(R.id.tvReply, item.getAddress());
 //        helper.setText(R.id.tvSingleTime,item.getTime());
     }
 

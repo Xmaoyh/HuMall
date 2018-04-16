@@ -6,6 +6,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
@@ -20,7 +21,7 @@ import java.util.List;
  * @date 2018/4/12
  * @describe 数据库
  */
-@Database(entities = {UserEntity.class},version = 1)
+@Database(entities = {UserEntity.class},version = 2)
 public abstract class AppDatabase extends RoomDatabase{
     private static AppDatabase sInstance;
     @VisibleForTesting
@@ -63,7 +64,9 @@ public abstract class AppDatabase extends RoomDatabase{
                             database.setDatabaseCreated();
                         });
                     }
-                }).build();
+                })
+                .addMigrations(MIGRATION_1_2)
+                .build();
     }
 
     /**
@@ -95,4 +98,12 @@ public abstract class AppDatabase extends RoomDatabase{
     private void setDatabaseCreated(){
         mIsDatabaseCreated.postValue(true);
     }
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE UserEntity "
+                    + " ADD COLUMN address TEXT");
+        }
+    };
 }
