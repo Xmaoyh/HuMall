@@ -8,6 +8,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.base.MyApplication;
 import com.maoyihan.www.kobe.db.AppDatabase;
 import com.maoyihan.www.kobe.db.entity.UserEntity;
@@ -46,7 +47,7 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
     private void getNewsFormNet() {
-        RetrofitUtil.getInstance().api().getNews()
+        DataRepository.getInstance().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NewsBean>() {

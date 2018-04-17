@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseFragment;
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.ThreadsBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.ThreadsAdapter;
@@ -63,13 +64,13 @@ public class ThreadsFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        AppBarLayout appBarLayout = (AppBarLayout)mActivity.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = (AppBarLayout) mActivity.findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if(verticalOffset == 0){
+                if (verticalOffset == 0) {
                     smartRefreshLayout.setEnabled(true);
-                }else{
+                } else {
                     smartRefreshLayout.setEnabled(false);
                 }
             }
@@ -95,7 +96,7 @@ public class ThreadsFragment extends BaseFragment {
     }
 
     private void getNews() {
-        RetrofitUtil.getInstance().api().getThreads()
+        DataRepository.getInstance().getThreads()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ThreadsBean>() {

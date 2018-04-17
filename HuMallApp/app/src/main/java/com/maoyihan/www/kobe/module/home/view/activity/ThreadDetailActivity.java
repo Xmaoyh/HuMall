@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.ThreadDetailBean;
 import com.maoyihan.www.kobe.utils.MyImageGetter;
@@ -66,14 +67,14 @@ public class ThreadDetailActivity extends BaseBarActivity {
 
     @Override
     protected void loadData() {
-        RetrofitUtil.getInstance().api().getThreadDetail(mTid)
+        DataRepository.getInstance().getThreadDetail(mTid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ThreadDetailBean>() {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Retro","onError");
+                        Log.d("Retro", "onError");
                     }
 
                     @Override
@@ -105,8 +106,8 @@ public class ThreadDetailActivity extends BaseBarActivity {
                         };
                         ThreadDetailBean.DataBean data = bean.getData();
                         tvTitle.setText(data.getTitle());
-                        tvTimeAndVisit.setText(data.getTime()+" 阅读"+data.getVisits());
-                        Glide.with(ThreadDetailActivity.this).load(data.getUserImg()).asBitmap().into(new BitmapImageViewTarget(ivAvatar){
+                        tvTimeAndVisit.setText(data.getTime() + " 阅读" + data.getVisits());
+                        Glide.with(ThreadDetailActivity.this).load(data.getUserImg()).asBitmap().into(new BitmapImageViewTarget(ivAvatar) {
                             @Override
                             protected void setResource(Bitmap resource) {
                                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -116,7 +117,7 @@ public class ThreadDetailActivity extends BaseBarActivity {
                             }
                         });
                         tvName.setText(data.getUsername());
-                        tvContent.setText(Html.fromHtml(data.getContent(),new MyImageGetter(ThreadDetailActivity.this, tvContent),null));
+                        tvContent.setText(Html.fromHtml(data.getContent(), new MyImageGetter(ThreadDetailActivity.this, tvContent), null));
                     }
                 });
     }

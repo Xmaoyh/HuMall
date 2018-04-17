@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.base.MyApplication;
 import com.maoyihan.www.kobe.db.AppDatabase;
 import com.maoyihan.www.kobe.db.entity.UserEntity;
@@ -39,72 +40,75 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<List<UserEntity>> mUserEntityList;
+    private DataRepository mDataRepository;
+
     public UserViewModel(@NonNull Application application) {
         super(application);
-        if(mUserEntityList == null){
+        if (mUserEntityList == null) {
             mUserEntityList = new MutableLiveData<>();
         }
+        mDataRepository = DataRepository.getInstance();
     }
 
-    public void getUserFromDb(){
+    public void getUserFromDb() {
         MyApplication.getInstance().getAppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mUserEntityList.postValue(MyApplication.getInstance().getDatabase().userDao().getAll());
+                mUserEntityList.postValue(mDataRepository.getAll());
             }
         });
     }
 
-    public void insertUser(List<UserEntity> userEntities){
+    public void insertUser(List<UserEntity> userEntities) {
         MyApplication.getInstance().getAppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                MyApplication.getInstance().getDatabase().userDao().insertAll(userEntities);
+                mDataRepository.insertAll(userEntities);
                 getUserFromDb();
             }
         });
     }
 
-    public void deleteUser(UserEntity userEntity){
+    public void deleteUser(UserEntity userEntity) {
         MyApplication.getInstance().getAppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                MyApplication.getInstance().getDatabase().userDao().delete(userEntity);
+                mDataRepository.delete(userEntity);
             }
         });
     }
 
 
-    public void deleteMao(){
-        MyApplication.getInstance().getDatabase().userDao().getAllLikeMao().
+    public void deleteMao() {
+        mDataRepository.getAllLikeMao().
                 subscribeOn(Schedulers.io()).
                 observeOn(Schedulers.io()).
                 subscribe(new SingleObserver<List<UserEntity>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.d("deleteMao","onSubscribe");
+                        Log.d("deleteMao", "onSubscribe");
                     }
 
                     @Override
                     public void onSuccess(List<UserEntity> userEntities) {
-                        Log.d("deleteMao","onSuccess");
-                        MyApplication.getInstance().getDatabase().userDao().deleteAll(userEntities);
-                        mUserEntityList.postValue(MyApplication.getInstance().getDatabase().userDao().getAll());
+                        Log.d("deleteMao", "onSuccess");
+                        mDataRepository.deleteAll(userEntities);
+                        mUserEntityList.postValue(mDataRepository.getAll());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("deleteMao","onError");
+                        Log.d("deleteMao", "onError");
                     }
                 });
     }
 
-    public void updateUser(UserEntity userEntity){
+    public void updateUser(UserEntity userEntity) {
         userEntity.setName("KKKK");
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                MyApplication.getInstance().getDatabase().userDao().update(userEntity);
+                mDataRepository.update(userEntity);
                 e.onNext("success");
             }
         }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(new Observer<String>() {
@@ -115,7 +119,7 @@ public class UserViewModel extends AndroidViewModel {
 
             @Override
             public void onNext(String s) {
-                mUserEntityList.postValue(MyApplication.getInstance().getDatabase().userDao().getAll());
+                mUserEntityList.postValue(mDataRepository.getAll());
             }
 
             @Override
@@ -130,19 +134,19 @@ public class UserViewModel extends AndroidViewModel {
         });
     }
 
-    /**一定要以userEntity -> Logger.t("id").d(userEntity)或者new Consumer<UserEntity>() {
-    @Override
-    public void accept(UserEntity userEntity) throws Exception {
-    Logger.t("id").d(userEntity);
-    }
-    }这种Consumer获取
+    /**
+     * 一定要以userEntity -> Logger.t("id").d(userEntity)或者new Consumer<UserEntity>() {
+     *
+     * @Override public void accept(UserEntity userEntity) throws Exception {
+     * Logger.t("id").d(userEntity);
+     * }
+     * }这种Consumer获取
      * 用new FlowableSubscriber<UserEntity>() {}只会回调onSubscribe方法
      * 貌似Maybe、Single、Flowable都支持Consumer
-     * */
+     */
     @SuppressLint("CheckResult")
-    public void getUserById(int id){
-
-        MyApplication.getInstance().getDatabase().userDao().getByUid(id)
+    public void getUserById(int id) {
+        mDataRepository.getByUid(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userEntity -> Logger.t("id").d(userEntity));

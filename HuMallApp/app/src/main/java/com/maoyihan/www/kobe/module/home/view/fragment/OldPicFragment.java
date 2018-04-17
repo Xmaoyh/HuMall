@@ -3,6 +3,7 @@ package com.maoyihan.www.kobe.module.home.view.fragment;
 import android.os.Bundle;
 
 import com.maoyihan.www.kobe.base.BaseListFragment;
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.PhotoArticleBean;
 import com.maoyihan.www.kobe.module.home.view.adapter.OldPicAdapter;
@@ -40,9 +41,9 @@ public class OldPicFragment extends BaseListFragment {
 
     @Override
     protected void getData(boolean isRefresh) {
-        RetrofitUtil.getInstance().api().getPhotoArticle("gallery_old_picture", mTime)
+        DataRepository.getInstance().getPhotoArticle("gallery_old_picture", mTime)
                 .subscribeOn(Schedulers.io())
-                .switchMap(new Function<PhotoArticleBean,Observable<PhotoArticleBean.DataBean>>() {
+                .switchMap(new Function<PhotoArticleBean, Observable<PhotoArticleBean.DataBean>>() {
                     @Override
                     public Observable<PhotoArticleBean.DataBean> apply(@NonNull PhotoArticleBean bean) throws Exception {
                         List<PhotoArticleBean.DataBean> data = bean.getData();
@@ -58,7 +59,7 @@ public class OldPicFragment extends BaseListFragment {
                     @Override
                     public boolean test(@NonNull PhotoArticleBean.DataBean dataBean) throws Exception {
                         // 去除重复新闻
-                        for (PhotoArticleBean.DataBean bean : (List<PhotoArticleBean.DataBean>)mAdapter.getData()) {
+                        for (PhotoArticleBean.DataBean bean : (List<PhotoArticleBean.DataBean>) mAdapter.getData()) {
                             if (dataBean.getTitle().equals(bean.getTitle())) {
                                 return false;
                             }

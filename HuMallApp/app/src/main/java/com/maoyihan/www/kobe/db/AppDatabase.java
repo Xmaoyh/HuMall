@@ -11,6 +11,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
+import com.maoyihan.www.kobe.base.MyApplication;
 import com.maoyihan.www.kobe.db.dao.UserDao;
 import com.maoyihan.www.kobe.db.entity.UserEntity;
 
@@ -21,20 +22,21 @@ import java.util.List;
  * @date 2018/4/12
  * @describe 数据库
  */
-@Database(entities = {UserEntity.class},version = 2)
-public abstract class AppDatabase extends RoomDatabase{
+@Database(entities = {UserEntity.class}, version = 2)
+public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
     @VisibleForTesting
     public static final String DATABASE_NAME = "Hu-db";
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
+
     public abstract UserDao userDao();
 
-    public static AppDatabase getInstance(final Context context, final AppExecutors executors) {
+    public static AppDatabase getInstance() {
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext(), executors);
-                    sInstance.updateDatabaseCreated(context.getApplicationContext());
+                    sInstance = buildDatabase(MyApplication.getInstance(), MyApplication.getInstance().getAppExecutors());
+                    sInstance.updateDatabaseCreated(MyApplication.getInstance());
                 }
             }
         }
@@ -57,7 +59,7 @@ public abstract class AppDatabase extends RoomDatabase{
                             // Add a delay to simulate a long-running operation
                             addDelay();
                             // Generate the data for pre-population
-                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
+                            AppDatabase database = AppDatabase.getInstance();
                             List<UserEntity> users = DataGenerator.generateUsers();
                             insertData(database, users);
                             // notify that the database was created and it's ready to be used
@@ -95,7 +97,7 @@ public abstract class AppDatabase extends RoomDatabase{
         return mIsDatabaseCreated;
     }
 
-    private void setDatabaseCreated(){
+    private void setDatabaseCreated() {
         mIsDatabaseCreated.postValue(true);
     }
 

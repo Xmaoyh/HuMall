@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 
 import com.maoyihan.www.kobe.R;
 import com.maoyihan.www.kobe.base.BaseBarActivity;
+import com.maoyihan.www.kobe.base.DataRepository;
 import com.maoyihan.www.kobe.http.RetrofitUtil;
 import com.maoyihan.www.kobe.module.home.bean.NewsDetailBean;
 
@@ -70,7 +71,7 @@ public class NewsDetailActivity extends BaseBarActivity {
     }
 
     private void getNewsDetail() {
-        RetrofitUtil.getInstance().api().getNewsDetail(mNid)
+        DataRepository.getInstance().getNewsDetail(mNid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NewsDetailBean>() {
