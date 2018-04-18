@@ -100,8 +100,8 @@ public class MeFragment extends BaseFragment {
             }
         });
         btn.setOnClickListener(v -> {
-//            mUserViewModel.deleteMao();
-            mUserViewModel.getUserById(2);
+            mUserViewModel.deleteMao();
+//            mUserViewModel.getUserById(2);
         });
     }
 

@@ -44,7 +44,7 @@ public interface UserDao {
     @Query("SELECT * FROM UserEntity WHERE uid  = :uid")
     Flowable<UserEntity> getByUid(int uid);
 
-    @Query("SELECT * FROM userentity WHERE name like 'M%'")
+    @Query("SELECT * FROM userentity WHERE name like 'Mao%'")
     Single<List<UserEntity>> getAllLikeMao();
 
 }

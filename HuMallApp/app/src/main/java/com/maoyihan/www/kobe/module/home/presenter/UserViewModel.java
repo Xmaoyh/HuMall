@@ -79,27 +79,14 @@ public class UserViewModel extends AndroidViewModel {
     }
 
 
+    @SuppressLint("CheckResult")
     public void deleteMao() {
         mDataRepository.getAllLikeMao().
                 subscribeOn(Schedulers.io()).
                 observeOn(Schedulers.io()).
-                subscribe(new SingleObserver<List<UserEntity>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d("deleteMao", "onSubscribe");
-                    }
-
-                    @Override
-                    public void onSuccess(List<UserEntity> userEntities) {
-                        Log.d("deleteMao", "onSuccess");
-                        mDataRepository.deleteAll(userEntities);
-                        mUserEntityList.postValue(mDataRepository.getAll());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("deleteMao", "onError");
-                    }
+                subscribe(userEntities -> {
+                    mDataRepository.deleteAll(userEntities);
+                    mUserEntityList.postValue(mDataRepository.getAll());
                 });
     }
 

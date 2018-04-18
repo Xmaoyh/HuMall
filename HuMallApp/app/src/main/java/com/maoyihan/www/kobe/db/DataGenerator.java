@@ -31,7 +31,7 @@ public class DataGenerator {
     private static final String[] SECOND = new String[]{
             "Three-headed Monkey", "Rubber Chicken", "Pint of Grog", "Monocle"};
     private static final String[] MM = new String[]{
-            "MC", "KB", "KD", "LBJ"};
+            "TMC", "KB", "KD", "LBJ"};
 
 
     public static List<UserEntity> generateUsers() {
