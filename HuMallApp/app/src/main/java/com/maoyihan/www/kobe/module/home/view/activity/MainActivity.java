@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManager;
     private boolean isExit;
-    private String fixBug;
 
 //    @Override
 //    protected int getLayout() {
